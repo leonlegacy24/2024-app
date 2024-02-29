@@ -10,8 +10,7 @@ jobs:
       
       - name: Build docker-compose
         run: docker-compose -f ./environment/app/docker-compose.yml up --build -d
-
-sca:
+  sca:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2   
