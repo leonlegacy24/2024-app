@@ -1,25 +1,12 @@
-sca:
+name: CI
+on:
+  push:
+    branches: [main]
+jobs: 
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2   
+      - uses: actions/checkout@v2
       
-      - run: |
-          mkdir -p logs/
-      - name: Safety
-        run: |
-         pip install safety
-         safety check -r environment/app/web/requirements.txt > logs/result-safety.txt
-      - uses: actions/upload-artifact@v2
-        with:
-          name: logs
-          path: logs/result.txt   
-          
-      - name: Pyraider
-        run: |
-          pip install pyraider
-          pyraider check -f environment/app/web/requirements.txt > logs/result-pyraider.txt
-          
-      - uses: actions/upload-artifact@v2
-        with:
-          name: logs
-          path: logs/result.json
+      - name: Build docker-compose
+        run: docker-compose -f ./environment/app/docker-compose.yml up --build -d
