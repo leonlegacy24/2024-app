@@ -1,17 +1,22 @@
 name: CI
+
 on:
   push:
     branches: [main]
+
 jobs: 
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
       
       - name: Build docker-compose
         run: docker-compose -f ./environment/app/docker-compose.yml up --build -d
-    sca:
+                
+  sca:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2   
       
@@ -24,8 +29,9 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: logs
-          path: logs/result.txt   
+          path: logs/result-safety.txt   
           
+
       - name: Pyraider
         run: |
           pip install pyraider
@@ -34,4 +40,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: logs
-          path: logs/result.json
+          path: logs/result-pyraider.json 
