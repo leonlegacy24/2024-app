@@ -3,5 +3,5 @@ filetype
 flask
 Flask-Limiter
 flask-login
-pymysql
-requests
+pymysql==1.0.2
+requests==2.25.1
