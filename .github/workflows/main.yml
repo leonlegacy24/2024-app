@@ -41,3 +41,21 @@ jobs:
         with:
           name: logs
           path: logs/result-pyraider.txt
+  sast:
+    needs: [build, sca]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2 
+        
+      - run: |
+          mkdir -p logs/      
+      
+      - uses: jpetrucciani/bandit-check@master
+        with:
+          path: './environment/app/web/chaimtube.py'
+          bandit_flags: '-lll -o logs/output.json -f json'
+    
+      - uses: actions/upload-artifact@v2
+        with:
+          name: logs
+          path: logs/output.json
